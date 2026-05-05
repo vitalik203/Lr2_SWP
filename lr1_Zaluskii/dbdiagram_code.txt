@@ -1,0 +1,35 @@
+// DbDiagram.io code for the library management system
+// Tables: Book, Reader, BookIssue
+
+Table Book {
+  Id int [pk, increment]
+  Title varchar(255) [not null]
+  Author varchar(255) [not null]
+  ISBN varchar(20) [not null]
+  PublishedYear int [not null]
+  Pages int [not null]
+  Genre varchar(100)
+}
+
+Table Reader {
+  Id int [pk, increment]
+  FirstName varchar(100) [not null]
+  LastName varchar(100) [not null]
+  Email varchar(255) [not null, unique]
+  Phone varchar(20)
+  LibraryCardNumber varchar(50) [not null, unique]
+  DateRegistered datetime [not null, default: `now()`]
+}
+
+Table BookIssue {
+  Id int [pk, increment]
+  BookId int [not null]
+  ReaderId int [not null]
+  IssueDate datetime [not null, default: `now()`]
+  DueDate datetime [not null]
+  ReturnDate datetime
+}
+
+// Relationships
+Ref: BookIssue.BookId > Book.Id
+Ref: BookIssue.ReaderId > Reader.Id

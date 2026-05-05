@@ -1,0 +1,32 @@
+@model lr1_Zaluskii.Models.BookIssue
+
+@{
+    ViewData["Title"] = "Видалити запис видачі";
+}
+
+<h1>Видалити запис видачі</h1>
+<h3 class="text-danger">Ви впевнені, що хочете видалити цей запис?</h3>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">Книга</dt>
+    <dd class="col-sm-9">@Model.Book?.Title</dd>
+
+    <dt class="col-sm-3">Читач</dt>
+    <dd class="col-sm-9">@Model.Reader?.FullName</dd>
+
+    <dt class="col-sm-3">Дата видачі</dt>
+    <dd class="col-sm-9">@Model.IssueDate.ToShortDateString()</dd>
+
+    <dt class="col-sm-3">Термін повернення</dt>
+    <dd class="col-sm-9">@Model.DueDate.ToShortDateString()</dd>
+
+    <dt class="col-sm-3">Повернуто</dt>
+    <dd class="col-sm-9">@(Model.IsReturned ? "Так" : "Ні")</dd>
+</dl>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Видалити" class="btn btn-danger" />
+    <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
+</form>

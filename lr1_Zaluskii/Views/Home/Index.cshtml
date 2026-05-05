@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Бібліотека — Головна";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Система управління бібліотекою</h1>
+    <p class="lead">Лабораторна робота №2 — Zaluskii</p>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">Книги</div>
+            <div class="card-body">
+                <p class="card-text">Перегляд, додавання, редагування та видалення книг бібліотеки.</p>
+                <a asp-controller="Books" asp-action="Index" class="btn btn-light">Перейти до книг</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Читачі</div>
+            <div class="card-body">
+                <p class="card-text">Управління реєстрацією читачів бібліотеки.</p>
+                <a asp-controller="Readers" asp-action="Index" class="btn btn-light">Перейти до читачів</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-header">Видача книг</div>
+            <div class="card-body">
+                <p class="card-text">Облік видачі та повернення книг читачами.</p>
+                <a asp-controller="BookIssues" asp-action="Index" class="btn btn-light">Перейти до видачі</a>
+            </div>
+        </div>
+    </div>
+</div>

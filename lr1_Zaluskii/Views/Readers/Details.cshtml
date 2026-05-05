@@ -1,0 +1,78 @@
+@model lr1_Zaluskii.Models.Reader
+
+@{
+    ViewData["Title"] = "Деталі читача";
+}
+
+<h1>Деталі читача</h1>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">Ім'я</dt>
+    <dd class="col-sm-9">@Model.FirstName</dd>
+
+    <dt class="col-sm-3">Прізвище</dt>
+    <dd class="col-sm-9">@Model.LastName</dd>
+
+    <dt class="col-sm-3">Email</dt>
+    <dd class="col-sm-9">@Model.Email</dd>
+
+    <dt class="col-sm-3">Телефон</dt>
+    <dd class="col-sm-9">@Model.Phone</dd>
+
+    <dt class="col-sm-3">Номер читацького квитка</dt>
+    <dd class="col-sm-9">@Model.LibraryCardNumber</dd>
+
+    <dt class="col-sm-3">Дата реєстрації</dt>
+    <dd class="col-sm-9">@Model.DateRegistered.ToShortDateString()</dd>
+</dl>
+
+<h4 class="mt-4">Взяті книги</h4>
+@if (Model.BookIssues != null && Model.BookIssues.Any())
+{
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>Книга</th>
+                <th>Автор</th>
+                <th>Дата видачі</th>
+                <th>Термін повернення</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var issue in Model.BookIssues)
+            {
+                <tr>
+                    <td>@issue.Book?.Title</td>
+                    <td>@issue.Book?.Author</td>
+                    <td>@issue.IssueDate.ToShortDateString()</td>
+                    <td>@issue.DueDate.ToShortDateString()</td>
+                    <td>
+                        @if (issue.IsReturned)
+                        {
+                            <span class="badge bg-success">Повернуто @issue.ReturnDate?.ToShortDateString()</span>
+                        }
+                        else if (issue.DueDate < DateTime.Now)
+                        {
+                            <span class="badge bg-danger">Прострочено</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">На руках</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">Читач ще не брав книг.</p>
+}
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Редагувати</a>
+    <a asp-action="Index" class="btn btn-secondary">До списку</a>
+</div>

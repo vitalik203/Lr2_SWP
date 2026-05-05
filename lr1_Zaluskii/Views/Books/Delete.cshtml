@@ -1,0 +1,35 @@
+@model lr1_Zaluskii.Models.Book
+
+@{
+    ViewData["Title"] = "Видалити книгу";
+}
+
+<h1>Видалити книгу</h1>
+<h3 class="text-danger">Ви впевнені, що хочете видалити цю книгу?</h3>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">Назва</dt>
+    <dd class="col-sm-9">@Model.Title</dd>
+
+    <dt class="col-sm-3">Автор</dt>
+    <dd class="col-sm-9">@Model.Author</dd>
+
+    <dt class="col-sm-3">ISBN</dt>
+    <dd class="col-sm-9">@Model.ISBN</dd>
+
+    <dt class="col-sm-3">Рік видання</dt>
+    <dd class="col-sm-9">@Model.PublishedYear</dd>
+
+    <dt class="col-sm-3">Кількість сторінок</dt>
+    <dd class="col-sm-9">@Model.Pages</dd>
+
+    <dt class="col-sm-3">Жанр</dt>
+    <dd class="col-sm-9">@Model.Genre</dd>
+</dl>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Видалити" class="btn btn-danger" />
+    <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
+</form>

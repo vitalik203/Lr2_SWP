@@ -1,0 +1,49 @@
+@model lr1_Zaluskii.Models.BookIssue
+
+@{
+    ViewData["Title"] = "Деталі видачі";
+}
+
+<h1>Деталі видачі книги</h1>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-3">Книга</dt>
+    <dd class="col-sm-9">@Model.Book?.Title</dd>
+
+    <dt class="col-sm-3">Автор</dt>
+    <dd class="col-sm-9">@Model.Book?.Author</dd>
+
+    <dt class="col-sm-3">Читач</dt>
+    <dd class="col-sm-9">@Model.Reader?.FullName</dd>
+
+    <dt class="col-sm-3">Email читача</dt>
+    <dd class="col-sm-9">@Model.Reader?.Email</dd>
+
+    <dt class="col-sm-3">Дата видачі</dt>
+    <dd class="col-sm-9">@Model.IssueDate.ToShortDateString()</dd>
+
+    <dt class="col-sm-3">Термін повернення</dt>
+    <dd class="col-sm-9">@Model.DueDate.ToShortDateString()</dd>
+
+    <dt class="col-sm-3">Дата повернення</dt>
+    <dd class="col-sm-9">
+        @if (Model.IsReturned)
+        {
+            <span class="badge bg-success">@Model.ReturnDate?.ToShortDateString()</span>
+        }
+        else if (Model.DueDate < DateTime.Now)
+        {
+            <span class="badge bg-danger">Прострочено (не повернено)</span>
+        }
+        else
+        {
+            <span class="badge bg-warning text-dark">Ще не повернено</span>
+        }
+    </dd>
+</dl>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Редагувати</a>
+    <a asp-action="Index" class="btn btn-secondary">До списку</a>
+</div>

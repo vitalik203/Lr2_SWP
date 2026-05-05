@@ -1,0 +1,40 @@
+@model IEnumerable<lr1_Zaluskii.Models.Reader>
+
+@{
+    ViewData["Title"] = "Читачі";
+}
+
+<h1>Список читачів</h1>
+<p>
+    <a asp-action="Create" class="btn btn-primary">+ Додати читача</a>
+</p>
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Прізвище та ім'я</th>
+            <th>Email</th>
+            <th>Телефон</th>
+            <th>№ квитка</th>
+            <th>Дата реєстрації</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FullName</td>
+                <td>@item.Email</td>
+                <td>@item.Phone</td>
+                <td>@item.LibraryCardNumber</td>
+                <td>@item.DateRegistered.ToShortDateString()</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Деталі</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Редагувати</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

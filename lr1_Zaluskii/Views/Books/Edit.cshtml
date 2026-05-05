@@ -1,0 +1,76 @@
+@model lr1_Zaluskii.Models.Book
+
+@{
+    ViewData["Title"] = "Редагувати книгу";
+}
+
+<h1>Редагувати книгу</h1>
+<hr />
+
+@if (TempData["SessionInfo"] != null)
+{
+    <div class="alert alert-info">ℹ️ @TempData["SessionInfo"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">⚠️ @TempData["Error"]</div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Author" class="form-label"></label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ISBN" class="form-label"></label>
+                <input asp-for="ISBN" class="form-control" placeholder="978-0-00-000000-0" />
+                <span asp-validation-for="ISBN" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="PublishedYear" class="form-label"></label>
+                <input asp-for="PublishedYear" class="form-control" />
+                <span asp-validation-for="PublishedYear" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Pages" class="form-label"></label>
+                <input asp-for="Pages" class="form-control" />
+                <span asp-validation-for="Pages" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Genre" class="form-label"></label>
+                <input asp-for="Genre" class="form-control" />
+                <span asp-validation-for="Genre" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 d-flex gap-2">
+                <input type="submit" value="Зберегти в сесію" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
+            </div>
+        </form>
+
+        <form asp-action="SaveEdit" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-success">Записати до бази</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

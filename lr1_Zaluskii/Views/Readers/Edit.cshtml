@@ -1,0 +1,76 @@
+@model lr1_Zaluskii.Models.Reader
+
+@{
+    ViewData["Title"] = "Редагувати читача";
+}
+
+<h1>Редагувати читача</h1>
+<hr />
+
+@if (TempData["SessionInfo"] != null)
+{
+    <div class="alert alert-info">ℹ️ @TempData["SessionInfo"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">⚠️ @TempData["Error"]</div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="FirstName" class="form-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="LastName" class="form-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" type="email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Phone" class="form-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="LibraryCardNumber" class="form-label"></label>
+                <input asp-for="LibraryCardNumber" class="form-control" />
+                <span asp-validation-for="LibraryCardNumber" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DateRegistered" class="form-label"></label>
+                <input asp-for="DateRegistered" class="form-control" type="date" />
+                <span asp-validation-for="DateRegistered" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 d-flex gap-2">
+                <input type="submit" value="Зберегти в сесію" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
+            </div>
+        </form>
+
+        <form asp-action="SaveEdit" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-success">Записати до бази</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
