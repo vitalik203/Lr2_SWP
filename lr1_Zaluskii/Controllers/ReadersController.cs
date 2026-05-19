@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using lr1_Zaluskii.Data;
@@ -37,6 +38,7 @@ namespace lr1_Zaluskii.Controllers
         }
 
         // GET: Readers/Create
+        [Authorize]
         public IActionResult Create()
         {
             var json = HttpContext.Session.GetString("CreateReader");
@@ -48,6 +50,7 @@ namespace lr1_Zaluskii.Controllers
 
         // POST: Readers/Create — зберігає до сесії
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("FirstName,LastName,Email,Phone,LibraryCardNumber,DateRegistered")] Reader reader)
         {
@@ -61,6 +64,7 @@ namespace lr1_Zaluskii.Controllers
 
         // POST: Readers/SaveCreate — з сесії до бази, очистка сесії
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveCreate()
         {
@@ -78,6 +82,7 @@ namespace lr1_Zaluskii.Controllers
         }
 
         // GET: Readers/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -91,6 +96,7 @@ namespace lr1_Zaluskii.Controllers
 
         // POST: Readers/Edit/5 — оновлює сесію (не БД)
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,FirstName,LastName,Email,Phone,LibraryCardNumber,DateRegistered")] Reader reader)
         {
@@ -106,6 +112,7 @@ namespace lr1_Zaluskii.Controllers
 
         // POST: Readers/SaveEdit — з сесії до бази, очистка сесії
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveEdit()
         {
@@ -131,6 +138,7 @@ namespace lr1_Zaluskii.Controllers
         }
 
         // GET: Readers/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -143,6 +151,7 @@ namespace lr1_Zaluskii.Controllers
 
         // POST: Readers/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,7 @@ namespace lr1_Zaluskii.Controllers
         }
 
         // GET: BookIssues/Create
+        [Authorize]
         public IActionResult Create()
         {
             var json = HttpContext.Session.GetString("CreateBookIssue");
@@ -56,6 +58,7 @@ namespace lr1_Zaluskii.Controllers
 
         // POST: BookIssues/Create — зберігає до сесії
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("BookId,ReaderId,IssueDate,DueDate")] BookIssue bookIssue)
         {
@@ -71,6 +74,7 @@ namespace lr1_Zaluskii.Controllers
 
         // POST: BookIssues/SaveCreate — з сесії до бази, очистка сесії
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveCreate()
         {
@@ -88,6 +92,7 @@ namespace lr1_Zaluskii.Controllers
         }
 
         // GET: BookIssues/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -103,6 +108,7 @@ namespace lr1_Zaluskii.Controllers
 
         // POST: BookIssues/Edit/5 — оновлює сесію (не БД)
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,BookId,ReaderId,IssueDate,DueDate,ReturnDate")] BookIssue bookIssue)
         {
@@ -120,6 +126,7 @@ namespace lr1_Zaluskii.Controllers
 
         // POST: BookIssues/SaveEdit — з сесії до бази, очистка сесії
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveEdit()
         {
@@ -146,6 +153,7 @@ namespace lr1_Zaluskii.Controllers
 
         // POST: BookIssues/Return/5
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Return(int id)
         {
@@ -158,6 +166,7 @@ namespace lr1_Zaluskii.Controllers
         }
 
         // GET: BookIssues/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -174,6 +183,7 @@ namespace lr1_Zaluskii.Controllers
 
         // POST: BookIssues/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

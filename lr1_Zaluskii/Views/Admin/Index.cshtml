@@ -1,0 +1,71 @@
+@model IList<lr1_Zaluskii.Models.UserRoleViewModel>
+
+@{
+    ViewData["Title"] = "Адмін-панель";
+}
+
+<h2 class="mb-4">Адмін-панель — Управління користувачами</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Email</th>
+                <th>Ролі</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var u = Model[i];
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>@u.Email</td>
+                    <td>
+                        @if (u.Roles.Any())
+                        {
+                            foreach (var role in u.Roles)
+                            {
+                                <span class="badge @(role == "Admin" ? "bg-danger" : "bg-secondary") me-1">@role</span>
+                            }
+                        }
+                        else
+                        {
+                            <span class="text-muted">—</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="EditRoles" asp-route-userId="@u.UserId"
+                           class="btn btn-sm btn-outline-primary me-1">Змінити ролі</a>
+
+                        <form asp-action="DeleteUser" method="post" class="d-inline"
+                              onsubmit="return confirm('Видалити користувача @u.Email?')">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="userId" value="@u.UserId" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Видалити</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<p class="text-muted small mt-2">Загалом користувачів: @Model.Count</p>
